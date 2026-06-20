@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ─── Coordinates ─────────────────────────────────────────────── -->
+    <groupId>com.javatoolbox</groupId>
+    <artifactId>javatoolbox</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>JavaToolbox</name>
+    <description>A dependency-free Java utility library with string and number helpers.</description>
+    <url>https://github.com/varunop18/javatoolbox</url>
+
+    <!-- ─── Properties ──────────────────────────────────────────────── -->
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
+    </properties>
+
+    <!-- ─── Dependencies ────────────────────────────────────────────── -->
+    <dependencies>
+        <!-- JUnit 5 — test scope only; no runtime dependency shipped in JAR -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- ─── Build ───────────────────────────────────────────────────── -->
+    <build>
+        <plugins>
+
+            <!-- Compiler: enforce Java 17 source/target -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Surefire: run JUnit 5 tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+
+            <!-- JAR: embed Main-Class in manifest for standalone execution -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.javatoolbox.demo.Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <finalName>javatoolbox-1.0.0</finalName>
+                </configuration>
+            </plugin>
+
+            <!-- Javadoc: generate HTML API reference -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <doclint>none</doclint>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <!-- ─── Distribution (GitHub Packages) ─────────────────────────── -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages — varunop18/javatoolbox</name>
+            <url>https://maven.pkg.github.com/varunop18/javatoolbox</url>
+        </repository>
+    </distributionManagement>
+
+</project>
